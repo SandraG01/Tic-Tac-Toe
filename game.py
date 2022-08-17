@@ -4,8 +4,8 @@ from player import HumanPlayer, RandomComputerPlayer, GeniusComputerPlayer
 
 
 class TicTacToe:
-    def _init_(self):
-        self.board = self.make_board()
+    def __init__(self):
+        self.board = [" " for _ in range(9)]
         self.current_winner = None
 
     def print_board(self):
@@ -22,7 +22,7 @@ class TicTacToe:
         return [i for i, spot in enumerate(self.board) if spot == " "]
 
     def empty_squares(self):
-        return " " in self.board
+        return ' ' in self.board
 
     def num_empty_squares(self):
         return self.board.count(" ")
@@ -90,9 +90,10 @@ if __name__ == "__main__":
     x_wins = 0
     o_wins = 0
     ties = 0
-    for _ in range(1000):
-        x_player = HumanPlayer()
-        o_player = GeniusComputerPlayer()
+    games = 100
+    for _ in range(games):
+        x_player = RandomComputerPlayer("X")
+        o_player = GeniusComputerPlayer("O")
         t = TicTacToe()
         result = play(t, x_player, o_player, print_game=False)
         if result == "X":
@@ -102,5 +103,5 @@ if __name__ == "__main__":
         else:
             ties += 1
 
-    print(f"After 1000 iterations, we see {x_wins} X wins, {o_wins} O wins, and {ties} ties")
+    print(f"After {games} iterations, we see {x_wins} X wins, {o_wins} O wins, and {ties} ties")
 
